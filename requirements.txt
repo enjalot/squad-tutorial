@@ -1,0 +1,4 @@
+latentscope
+datasets
+lancedb
+tqdm
