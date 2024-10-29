@@ -56,7 +56,9 @@ def main():
     tbl = db.create_table(table_name, scope_df)
 
     print(f"Creating index on table '{table_name}'")
-    tbl.create_index(num_partitions=256, num_sub_vectors=96, metric=args.metric)
+    vector_dim = embeddings['embeddings'].shape[1]
+    num_sub = min(96, max(1, vector_dim // 2))
+    tbl.create_index(num_partitions=256, num_sub_vectors=num_sub, metric=args.metric)
 
     model_name = scopes_meta['embedding']['model_id'][2:].replace("___", "/")
     # Prepare metadata
